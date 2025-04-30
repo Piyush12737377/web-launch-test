@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="QuizZzacC - Real-Time Quiz Survival. Darkness Awaits." />
+  <title>QuizZzacC ⚡️</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Anton&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      cursor: crosshair;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 30px;
+      background: #0d0d0d;
+      box-shadow: 0 0 40px crimson;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 3.8rem;
+      color: #ff0000;
+      text-shadow: 0 0 30px red;
+      position: relative;
+      animation: bloodDrop 3s infinite;
+    }
+
+    @keyframes bloodDrop {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(4px); text-shadow: 0 0 50px crimson; }
+      100% { transform: translateY(0); }
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: #aaaaaa;
+      margin-top: 10px;
+      text-shadow: 0 0 10px crimson;
+      animation: glitchText 3s infinite;
+    }
+
+    @keyframes glitchText {
+      0% { opacity: 1; transform: scale(1); }
+      33% { opacity: 0.8; transform: scale(1.01) rotate(-0.5deg); }
+      66% { opacity: 0.6; transform: scale(1.03) rotate(0.5deg); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .countdown {
+      margin-top: 50px;
+      font-size: 2.2rem;
+      color: #ff2222;
+      text-shadow: 0 0 20px darkred;
+    }
+
+    button {
+      margin-top: 40px;
+      background: transparent;
+      border: 2px solid #ff0000;
+      padding: 15px 30px;
+      color: crimson;
+      font-size: 1.2rem;
+      border-radius: 6px;
+      box-shadow: 0 0 15px red;
+      cursor: pointer;
+      animation: flickerBtn 2s infinite alternate;
+    }
+
+    @keyframes flickerBtn {
+      from { box-shadow: 0 0 5px red; }
+      to { box-shadow: 0 0 25px crimson; transform: scale(1.03); }
+    }
+
+    button:hover {
+      background: rgba(255, 0, 0, 0.1);
+      animation: shakeBtn 0.2s infinite;
+    }
+
+    @keyframes shakeBtn {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-2px); }
+      50% { transform: translateX(2px); }
+      75% { transform: translateX(-1px); }
+      100% { transform: translateX(0); }
+    }
+
+    .footer {
+      margin-top: 80px;
+      font-size: 0.9rem;
+      color: #666;
+      font-style: italic;
+      text-shadow: 0 0 5px red;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: var(--y, 50%);
+      left: var(--x, 50%);
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, rgba(255,0,0,0.25) 0%, transparent 80%);
+      border-radius: 100%;
+      box-shadow: 0 0 40px 10px crimson, 0 0 80px 30px rgba(255,0,0,0.2);
+      pointer-events: none;
+      transform: translate(-50%, -50%) rotate(0deg);
+      animation: eyeRotate 8s infinite linear;
+      z-index: 9999;
+      backdrop-filter: blur(3px);
+    }
+
+    @keyframes eyeRotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .smoke {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('redeye.gif') center center/cover no-repeat;
+      opacity: 0.03;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .auth-box {
+      max-width: 400px;
+      margin: 40px auto;
+      background: #111;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px red;
+    }
+
+    .auth-box h2 {
+      color: crimson;
+      font-family: 'Anton', sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .auth-box input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px auto;
+      border: none;
+      border-radius: 20px;
+      font-size: 2rem;
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .auth-box button {
+      background: rgb(220, 20, 20);
+      border: none;
+      color: white;
+      padding: 10px 25px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    #form-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="smoke"></div>
+
+  <header>
+    <h1>🩸 QuizZzacC 🩸</h1>
+    <p class="tagline">One Quiz. One Survivor. The Clock's Bleeding...</p>
+  </header>
+
+  <div class="countdown" id="countdown">Next Quiz Starts in: 00:59:59</div>
+
+  <button onclick="playSound(); alert('You’ll be notified for the next round of fear.')">☠️ Notify Me</button>
+
+  <div class="footer">© 2025 QuizZzacC | Survive the Clock. Or Die Waiting.</div>
+
+  <audio id="sfx" src="https://assets.mixkit.co/sfx/preview/mixkit-horror-ambience-110.mp3"></audio>
+
+  <script>
+    let seconds = 3599;
+    const timer = document.getElementById('countdown');
+    setInterval(() => {
+      const h = String(Math.floor(seconds / 3600)).padStart(2, '0');
+      const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      timer.innerText = `Next Quiz Starts in: ${h}:${m}:${s}`;
+      seconds--;
+      if (seconds < 0) seconds = 3599;
+    }, 1000);
+
+    function playSound() {
+      document.getElementById("sfx").play();
+    }
+
+    document.addEventListener("mousemove", (e) => {
+      document.body.style.setProperty('--x', `${e.clientX}px`);
+      document.body.style.setProperty('--y', `${e.clientY}px`);
+    });
+
+    function showLogin() {
+      document.getElementById('login-form').style.display = 'block';
+      document.getElementById('register-form').style.display = 'none';
+    }
+
+    function showRegister() {
+      document.getElementById('login-form').style.display = 'none';
+      document.getElementById('register-form').style.display = 'block';
+    }
+  </script>
+
+  <div class="auth-box">
+    <div id="form-toggle">
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showRegister()">Register</button>
+    </div>
+
+    <form id="login-form">
+      <h2>Login</h2>
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Enter the Arena</button>
+    </form>
+
+    <form id="register-form" style="display: none;">
+      <h2>Register</h2>
+      <input type="text" placeholder="Username" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Create Account</button>
+    </form>
+  </div>
+</body>
+</html>
